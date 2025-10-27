@@ -91,8 +91,7 @@ ga id: behalfOfInfo
 question: |
   First, enter your information
 subquestion: |
-  Your information is needed to get a copy of the signed retainer
-  without needing to go to the attorney or paralegal.
+  As the paralegal sending this on behalf of an attorney, you will also get a copy of the completed forms once the client signs.
 fields:
   - First Name: b.name.first
   - Last Name: b.name.last
@@ -104,7 +103,7 @@ question: |
   % if role_select == "advocate" or role_select == "para_self":
     First, enter your information
   % else:
-    First, enter the information of the person for whom you are completing the retainer
+    Next, enter the information of the attorney for whom you are completing the retainer
   % endif
 subquestion: |
   The information is needed to get the signed retainer
@@ -318,6 +317,7 @@ action buttons:
 need:
   - attorney_setup
 ---
+#Look at the logic toward the end of this block to see why you got the 'There was a problem' message when the email sent just fine - likely due to using/testing the paralegal branch and needing to work on that logic
 ga id: retainerComplete
 event: final_screen
 question: |
