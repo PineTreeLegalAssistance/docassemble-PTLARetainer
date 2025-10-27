@@ -151,8 +151,12 @@ question: |
   Please select the type of retainer
 field: retainer
 choices:
-  - English Legal Retainer (Full, with Attorney Fee Addendum & Citizenship): english
-  - Spanish Legal Retainer (Full, with Attorney Fee Addendum & Citizenship): spanish
+  - Complete Retainer Bundle (Retainer with Attorney Fee Addendum & Citizenship Attestation): english
+  - Retainer (Full Retainer only, no Fee Addendum or Citizenship Attestation): retainer_only
+  - Retainer with Fee Addendum (No Citizenship Attestation): retainer_fee
+  - Retainer with Citizenship Attestation (No Fee Addendum): retainer_citizenship
+  #- Spanish Legal Retainer (Full, with Attorney Fee Addendum & Citizenship): spanish
+  - Citizenship Attestation (Only the Citizenship form - no Retainer or Fee Addendum): citizenship_only
   #- FAST Advocate Retainer: fast
   #- BHA Advocate Retainer: bha
   
@@ -352,7 +356,7 @@ action buttons:
 code: |
   if retainer == 'english':
     if legal_retainer == 'Full':
-      client_emailed = send_email(to=clients,attachments=[full,addendum],template=see_attached)
+      client_emailed = send_email(to=clients,attachments=[full,addendum,citizenship],template=see_attached)
     #elif legal_retainer == 'Limited':
       #client_emailed = send_email(to=c,attachments=limited,template=see_attached)
   elif retainer == 'spanish':
@@ -369,7 +373,7 @@ code: |
   if defined('b'):
     if retainer == 'english':
       if legal_retainer == 'Full':
-        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,addendum],template=behalf_attached)
+        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,addendum,citizenship],template=behalf_attached)
       #elif legal_retainer == 'Limited':
         #attorney_emailed = send_email(to=attorneys,cc=b,attachments=limited,template=behalf_attached)
     elif retainer == 'spanish':
@@ -384,7 +388,7 @@ code: |
   else:
     if retainer == 'english':
       if legal_retainer == 'Full':
-        attorney_emailed = send_email(to=attorneys,attachments=[full,addendum],template=see_attached)
+        attorney_emailed = send_email(to=attorneys,attachments=[full,addendum,citizenship],template=see_attached)
       #elif legal_retainer == 'Limited':
         #attorney_emailed = send_email(to=a,attachments=limited,template=see_attached)
     elif retainer == 'spanish':
@@ -546,7 +550,7 @@ attachment:
       - "legal_specs": ${ legal_specs }
       - "clients1_name__1": ${ clients1_name }
       - "clients1_name__2": ${ clients1_name }
-      - "clients1_name__3": ${ clients1_name }
+      #- "clients1_name__3": ${ clients1_name }
       - "facts_statement": ${ facts_statement }
       - "attorneys1_name": ${ attorneys1_name }
       - "clients1_signature__2": ${ clients1_signature }
@@ -557,10 +561,10 @@ attachment:
       - "attorney_signature_text": |
           ${ '/s/ ' + attorneys1_name if a_method == 'type' else '' }
       - "atty_date": ${ atty_date.format() }
-      - "clients1_signature__3": ${ clients1_signature }
-      - "clients1_signature_text_3": |
-          ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
-      - "date__3": ${ date.format() }
+      #- "clients1_signature__3": ${ clients1_signature }
+      #- "clients1_signature_text_3": |
+      #    ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
+      #- "date__3": ${ date.format() }
 ---
 attachment:
   - name: Full Retainer Agreement
@@ -587,10 +591,10 @@ attachment:
       - "attorney_signature_text": |
           ${ '/s/ ' + attorneys1_name if a_method == 'type' else '' }
       - "atty_date": ${ atty_date.format() }
-      - "clients1_signature__3": ${ clients1_signature }
-      - "clients1_signature_text_3": |
-          ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
-      - "date__3": ${ date.format() }
+      #- "clients1_signature__3": ${ clients1_signature }
+      #- "clients1_signature_text_3": |
+      #    ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
+      #- "date__3": ${ date.format() }
 ---
 attachment:
   - name: Attorney Fee Addendum
@@ -605,6 +609,20 @@ attachment:
       - "clients1_signature_text_4": |
           ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
       - "date__4": ${ date.format() }
+---
+attachment:
+  - name: Citizenship Attestation
+    filename: ${ clients1_name } Citizenship Attestation
+    pdf template file: Docassemble_PTLA_Citizenship.pdf
+    editable: False
+    skip undefined: True
+    variable name: citizenship
+    fields:
+      - "clients1_name__3": ${ clients1_name }
+      - "clients1_signature__3": ${ clients1_signature }
+      - "clients1_signature_text_3": |
+          ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
+      - "date__3": ${ date.format() }
 ---
 code: |
   role_select
