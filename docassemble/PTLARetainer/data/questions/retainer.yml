@@ -133,7 +133,7 @@ fields:
 ---
 ga id: citizenship
 question: |
-  Is the client a U.S. Citizen?
+  Are you asking the client to fill out a Citizenship Attestation?
 yesno: citizen
 ---
 #question: |
