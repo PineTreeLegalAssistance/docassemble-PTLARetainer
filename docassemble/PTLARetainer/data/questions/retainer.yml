@@ -71,7 +71,7 @@ code: |
   clients1_signature
   final_screen  
 ---
-# Two options for handling this: either we remove the role selection feature entirely so only attys can use the form, or modify it so paralegals can use it and have it relayed to atty. and then client in the proper order...will need to test and experiment with how those options might work. 
+# Two options for handling this: either we remove the role selection feature entirely so only attys can use the form, or modify it so paralegals can use it and have it relayed to atty. and then client in the proper order...will need to test and experiment with how those options might work. Scratch that - ok to use flow as currently designed!
 ga id: roleSelect
 question: |
   Select your role
@@ -364,10 +364,18 @@ code: |
       client_emailed = send_email(to=clients,attachments=full_spanish,template=see_attached)
     #elif legal_retainer == 'Limited':
       #client_emailed = send_email(to=c,attachments=limited_spanish,template=see_attached)
-  #elif retainer == 'fast':
-    #client_emailed = send_email(to=c,attachments=fast,template=see_attached)
-  #elif retainer == 'bha':
-    #client_emailed = send_email(to=c,attachments=bha,template=see_attached)  
+  elif retainer == 'retainer_only':
+    if legal_retainer == 'Full':
+      client_emailed = send_email(to=clients,attachments=[full],template=see_attached)
+  elif retainer == 'retainer_fee':
+    if legal_retainer == 'Full':
+      client_emailed = send_email(to=clients,attachments=[full,addendum],template=see_attached)
+  elif retainer == 'retainer_citizenship':
+    if legal_retainer == 'Full':
+      client_emailed = send_email(to=clients,attachments=[full,citizenship],template=see_attached)
+  elif retainer == 'citizenship_only':
+    if legal_retainer == 'Full':
+      client_emailed = send_email(to=clients,attachments=[citizenship],template=see_attached)
 ---
 code: |
   if defined('b'):
@@ -645,7 +653,7 @@ code: |
   #if not citizen:
   #  reminder
   retainer
-  if retainer == 'english' or retainer == 'spanish':    
+  if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship' or retainer == 'citizenship_only':    
     legal_retainer
     legal_scope
     legal_specs
