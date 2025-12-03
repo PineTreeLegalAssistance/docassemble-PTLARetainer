@@ -85,6 +85,8 @@ choices:
 ---
 code: |
   legal_retainer = 'Full' 
+
+#Could maybe take this out and then remove this conditional code from all the retainer select and email option code further down...but I am trying to work quickly so have left it as-is for now because it is functional.  
 ---
 # May remove this
 ga id: behalfOfInfo
@@ -572,12 +574,9 @@ attachment:
     skip undefined: True
     variable name: full
     fields:
-      - "date__1": |
-          ${ date.format() if citizen == True else '' }
-      - "clients1_signature__1": |
-          ${ clients1_signature if citizen == True else '' }
-      - "clients1_signature_text_1": |
-          ${ '/s/ ' + clients1_name if c_method == 'type' and citizen == True else ''}
+      - "date__1": ${ date.format() }
+      - "clients1_signature__1": ${ clients1_signature }
+      - "clients1_signature_text_1": ${ '/s/ ' + clients1_name if c_method == 'type' else ''}
       - "legal_scope": ${ legal_scope }
       - "legal_specs": ${ legal_specs }
       - "clients1_name__1": ${ clients1_name }
@@ -585,10 +584,12 @@ attachment:
       #- "clients1_name__3": ${ clients1_name }
       - "facts_statement": ${ facts_statement }
       - "attorneys1_name": ${ attorneys1_name }
-      - "clients1_signature__2": ${ clients1_signature }
+      - "clients1_signature__2": |
+          ${ clients1_signature if facts == True else '' }
       - "clients1_signature_text_2": |
-          ${ '/s/ ' + clients1_name if c_method == 'type' else '' }
-      - "date__2": ${ date.format() }
+          ${ '/s/ ' + clients1_name if c_method == 'type' and facts == True else '' }
+      - "date__2": |
+          ${ date.format() if facts == True else '' }
       - "attorneys1_signature": ${ attorneys1_signature }
       - "attorney_signature_text": |
           ${ '/s/ ' + attorneys1_name if a_method == 'type' else '' }
