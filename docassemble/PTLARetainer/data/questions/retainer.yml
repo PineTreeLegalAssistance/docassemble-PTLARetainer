@@ -384,6 +384,18 @@ code: |
         attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,addendum,citizenship],template=behalf_attached)
       #elif legal_retainer == 'Limited':
         #attorney_emailed = send_email(to=attorneys,cc=b,attachments=limited,template=behalf_attached)
+    elif retainer == 'retainer_only':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,addendum,citizenship],template=behalf_attached)
+    elif retainer == 'retainer_fee':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,addendum],template=behalf_attached)
+    elif retainer == 'retainer_citizenship':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[full,citizenship],template=behalf_attached)
+    elif retainer == 'citizenship_only':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,cc=b,attachments=[citizenship],template=behalf_attached)
     elif retainer == 'spanish':
       if legal_retainer == 'Full':
         attorney_emailed = send_email(to=attorneys,cc=b,attachments=full_spanish,template=behalf_attached)
@@ -397,6 +409,18 @@ code: |
     if retainer == 'english':
       if legal_retainer == 'Full':
         attorney_emailed = send_email(to=attorneys,attachments=[full,addendum,citizenship],template=see_attached)
+    elif retainer == 'retainer_only':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,attachments=[full],template=see_attached)
+    elif retainer == 'retainer_fee':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,attachments=[full,addendum],template=see_attached)
+    elif retainer == 'retainer_citizenship':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,attachments=[full,citizenship],template=see_attached)
+    elif retainer == 'citizenship_only':
+      if legal_retainer == 'Full':
+        attorney_emailed = send_email(to=attorneys,attachments=[citizenship],template=see_attached)
       #elif legal_retainer == 'Limited':
         #attorney_emailed = send_email(to=a,attachments=limited,template=see_attached)
     elif retainer == 'spanish':
