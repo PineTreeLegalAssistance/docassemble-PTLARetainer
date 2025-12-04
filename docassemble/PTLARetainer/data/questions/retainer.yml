@@ -242,6 +242,9 @@ ga id: legalRetainerReview
 question: |
   Retainer Review
 subquestion: |
+  Thank you for reviewing these important documents from Pine Tree Legal Assistance!
+  
+  % if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship':
   ${ role } ${ attorneys1_name } is going to assist with the following:
 
   Scope of representation:
@@ -251,18 +254,17 @@ subquestion: |
   Specific details of representation:
   
   ${ legal_specs }
+  % endif
   
   % if facts:
   These are the basic facts of the case:
   
   ${ facts_statement }
   % endif
-  
+
+  % if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship':
+  <strong>Retainer Terms</strong>
   The retainer, your agreement with Pine Tree Legal Assistance, has the following terms. Click on the underlined text below to expand the box and read each term. If you have questions, or don't understand any of the terms, please contact the person you are working with at PTLA before agreeing.
-  
-  % if citizen:
-  You confirm that you are a U.S. Citizen;
-  % endif
   
   ${ collapse_template(fees) }
   
@@ -271,6 +273,18 @@ subquestion: |
   ${ collapse_template(client_duties) }
   
   ${ collapse_template(end_agreement) }
+
+  % endif
+
+  % if retainer == 'english' or retainer == 'retainer_fee':
+  <strong>Attorney Fee Addendum</strong>
+  ${ collapse_template(fee_addendum )}
+  % endif
+  
+  % if citizen:
+  <strong>Citizenship</strong>
+  You confirm that you are a U.S. Citizen;
+  % endif
 
 field: client_review
 Buttons:
@@ -518,6 +532,18 @@ content: |
   </ul>
   
   Pine Tree will send notice of its intent to end this agreement to the Client’s last known address.  Pine Tree will also ask the court’s permission to withdraw from the case, if court rules require it. 
+---
+template: fee_addendum
+subject: |
+  Attorney Fee Addendum
+content: |
+  <ol>I understand that I do not have to pay any attorney fees to Pine Tree Legal Assistance(Pine Tree) for the time Pine Tree staff spends on my case against ${ OP_name } (opposing party).</ol>
+  <ol>I understand that Pine Tree may be able ask the other side to pay attorney fees for its staff time, in addition to any relief for me. I agree that Pine Tree may keep any attorney fees that are obtained through court or agency order or settlement.</ol>
+  <ol>I understand that attorney fees awards can be an important source of funds for Pine Tree and that such fees may help Pine Tree serve more people who cannot afford a lawyer.</ol>
+  <ol>If we agree to a settlement that includes an amount for fees to be paid to Pine Tree, I understand that Pine Tree will first deduct that amount and then pay the rest to me.</ol>
+  <ol>I understand that Pine Tree staff will explain all settlement offers to me, and I agree not to settle this case without talking to my Pine Tree attorney.  Pine Tree will not settle this case without my agreement.</ol>
+  <ol>I understand that the opposing party may offer to give me what I want only if Pine Tree gives up any claim for attorney fees or that the other side may offer a lump sum payment without a breakdown between my claim and any claim for attorney fees. I understand that I have the right to decide what settlement to accept, but I also understand that giving up a claim to attorney fees may hurt Pine Tree’s ability to help others. I agree to consider Pine Tree’s goals if faced with this situation.</ol>
+  <ol>I acknowledge that Pine Tree attorneys have not given me any advice about the taxes I may face because of any damages award or award for attorney fees.  If I have tax questions, I will seek advice from a tax professional.</ol>
 ---
 template: notification
 subject: |
