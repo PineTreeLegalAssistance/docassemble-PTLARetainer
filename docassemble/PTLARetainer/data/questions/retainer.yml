@@ -55,7 +55,7 @@ code: |
       #reject
   else:
     if client_review == 'reject':
-      if defined(b):
+      if role_select == 'para_behalf':
         recipients = [attorneys,b]
       else:
         recipients = [attorneys]
@@ -258,7 +258,7 @@ subquestion: |
   ${ legal_specs }
   % endif
   
-  % if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship' and facts:
+  % if retainer == 'english' and facts or retainer == 'retainer_only' and facts or retainer == 'retainer_fee' and facts or retainer == 'retainer_citizenship' and facts:
   These are the basic facts of the case:
   
   ${ facts_statement }
