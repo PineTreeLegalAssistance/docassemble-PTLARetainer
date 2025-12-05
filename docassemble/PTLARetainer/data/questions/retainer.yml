@@ -242,24 +242,24 @@ ga id: legalRetainerReview
 question: |
   Client Document Review
 subquestion: |
-  Thank you for reviewing these important documents from Pine Tree Legal Assistance!
+  <h2>Thank you for reviewing these important documents from Pine Tree Legal Assistance!</h2>
 
   Below you will find the terms of the documents your PTLA advocate is asking you to sign. Please read the terms carefully. If you have questions, or don't understand any of the terms, please contact the person you are working with at PTLA before clicking 'I agree' to sign your documents. 
   
   % if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship':
-  ${ role } ${ attorneys1_name } is going to assist with the following:
+  <strong>${ role } ${ attorneys1_name } is going to assist with the following:</strong>
 
-  Scope of representation:
+  <strong>Scope of representation:</strong>
 
   ${ legal_scope }
   
-  Specific details of representation:
+  <strong>Specific details of representation:</strong>
   
   ${ legal_specs }
   % endif
   
   % if retainer == 'english' and facts or retainer == 'retainer_only' and facts or retainer == 'retainer_fee' and facts or retainer == 'retainer_citizenship' and facts:
-  These are the basic facts of the case:
+  <strong>These are the basic facts of the case:</strong>
   
   ${ facts_statement }
   % endif
