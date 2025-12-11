@@ -93,7 +93,7 @@ ga id: behalfOfInfo
 question: |
   First, enter your information
 subquestion: |
-  As the paralegal sending this on behalf of an attorney, you will also get a copy of the completed forms once the client signs.
+  As the paralegal sending this on behalf of an attorney, you will also get a copy of the completed forms once the client signs. <br />
   By proceeding with this form, you confirm that you have the attorneys permission to create a signed retainer.
 fields:
   - First Name: b.name.first
@@ -164,6 +164,12 @@ choices:
   #- BHA Advocate Retainer: bha
   
 #How to handle variations and translations? Dropdown select? Retainer + Citizenship + Atty. Fee Ad. (English), R+C+F (French), - this method will get very unweildy if listing out all options. Maybe two stages - document select and then language select? Similar to how this program handles the full/limited question after this retainerType question  
+---
+code: |
+  if retainer == 'retainer_citizenship' or retainer == 'citizenship_only' or retainer == 'english':
+    citizen = True
+  else:
+    citizen = False
 ---
 ga id: retainerScope
 question: |
@@ -706,7 +712,7 @@ code: |
     #b.name.first
   attorneys1_name
   clients1_name
-  citizen
+  #citizen
   #if not citizen:
   #  reminder
   retainer
