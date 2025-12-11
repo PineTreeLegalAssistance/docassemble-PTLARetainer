@@ -94,6 +94,7 @@ question: |
   First, enter your information
 subquestion: |
   As the paralegal sending this on behalf of an attorney, you will also get a copy of the completed forms once the client signs. <br />
+  
   By proceeding with this form, you confirm that you have the attorneys permission to create a signed retainer.
 fields:
   - First Name: b.name.first
@@ -274,6 +275,8 @@ subquestion: |
   % if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship':
   <strong>Retainer Terms</strong> <br />
   The retainer, your agreement with Pine Tree Legal Assistance, has the following terms. Click on the underlined text below to expand the box and read each term. 
+  
+  ${ collapse_template(basics) }
   
   ${ collapse_template(fees) }
   
@@ -482,6 +485,23 @@ action buttons:
 back button: True
 back button label: |
   Wait, go back
+---
+template: basics
+subject: |
+  Basic Terms
+content: |
+  The Client asks Pine Tree to take appropriate legal action in this matter. 
+  
+  The Client wants Pine Tree to take any steps necessary to protect their interests, even when Pine Tree is unable to consult with the Client right away. The Client agrees:
+  
+  <ul>
+  <li>Pine Tree is only helping with this particular legal problem</li>
+  <li>Pine Tree cannot guarantee the outcome of the case</li>
+  <li>Pine Tree has no duty to file an appeal because the Client disagrees with a decision</li>
+  <li>Pine Tree agrees that it will file an appeal only if the Client approves the appeal.</li>
+  </ul>
+
+  Both Pine Tree and the Client agree they will do their best to consult fully with each other about whether an appeal should be taken.
 ---
 template: fees
 subject: |
