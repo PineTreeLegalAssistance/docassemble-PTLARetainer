@@ -94,6 +94,7 @@ question: |
   First, enter your information
 subquestion: |
   As the paralegal sending this on behalf of an attorney, you will also get a copy of the completed forms once the client signs.
+  By proceeding with this form, you confirm that you have the attorneys permission to create a signed retainer.
 fields:
   - First Name: b.name.first
   - Last Name: b.name.last
@@ -153,12 +154,12 @@ question: |
   Please select the type of retainer
 field: retainer
 choices:
-  - Complete Retainer Bundle (Retainer with Attorney Fee Addendum & Citizenship Attestation): english
-  - Retainer (Full Retainer only, no Fee Addendum or Citizenship Attestation): retainer_only
-  - Retainer with Fee Addendum (No Citizenship Attestation): retainer_fee
   - Retainer with Citizenship Attestation (No Fee Addendum): retainer_citizenship
+  - Retainer (Full Retainer only, no Fee Addendum or Citizenship Attestation): retainer_only
+  - Citizenship Attestation (Only the Citizenship form - no Retainer or Fee Addendum): citizenship_only                                                                           
+  - Complete Retainer Bundle (Retainer with Attorney Fee Addendum & Citizenship Attestation): english
+  - Retainer with Fee Addendum (No Citizenship Attestation): retainer_fee
   #- Spanish Legal Retainer (Full, with Attorney Fee Addendum & Citizenship): spanish
-  - Citizenship Attestation (Only the Citizenship form - no Retainer or Fee Addendum): citizenship_only
   #- FAST Advocate Retainer: fast
   #- BHA Advocate Retainer: bha
   
@@ -166,7 +167,7 @@ choices:
 ---
 ga id: retainerScope
 question: |
-  Please provide the scope of the retainer
+  What is the scope of the work? Include what level of service, when the representation will end, any other limits on our representation, and any specific tasks we are agreeing to handle.
 #subquestion: |
 #  This applies whether the retainer is limited or full
 fields:
@@ -178,7 +179,7 @@ fields:
 ---
 id: retainerSpecifics
 question: |
-  Specificity: identify the parties; docket number if known, address, date of hearing or event; and issue e.g. eviction, lawsuit on warranty of habitability, or pfa
+  Specificity: What is the legal issue we are helping the client with? Include as many details as possible including the parties, docket number, address, hearing date, etc.
 fields:
   - no label: legal_specs
     input type: area
@@ -186,7 +187,7 @@ fields:
 ---
 id: facts
 question: |
-  Is this an affirmative case where we need a client statement of facts for the retainer?
+  Is a Pine Tree attorney filing an affirmative case on behalf of a client where we need a client statement of facts?
 yesno: facts
 ---
 id: facts statements
@@ -711,8 +712,8 @@ code: |
   retainer
   if retainer == 'english' or retainer == 'retainer_only' or retainer == 'retainer_fee' or retainer == 'retainer_citizenship':    
     legal_retainer
-    legal_scope
     legal_specs
+    legal_scope
     facts
     if facts:
       facts_statement
